@@ -1,3 +1,4 @@
+import { formatDateString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -38,7 +39,7 @@ const ThreadCard = ({
 }: Props) => {
   return (
     <article
-      className={`flex w-full flex-col rounded- ${
+      className={`flex w-full flex-col rounded-xl ${
         isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
       }`}
     >
@@ -110,7 +111,29 @@ const ThreadCard = ({
             </div>
           </div>
         </div>
+        {/*TODO: DeleteThread */}
+
+        {/* TODO: Show comment logos */}
       </div>
+
+      {!isComment && community && (
+        <Link
+          href={`/communities/${community.id}`}
+          className="mt-5 flex items-center"
+        >
+          <p className="text-subtle-medium text-gray-1">
+            {formatDateString(createdAt)} - {community.name} Community
+          </p>
+
+          <Image
+            src={community.image}
+            alt={community.name}
+            width={14}
+            height={14}
+            className="ml-1 rounded-full object-cover"
+          />
+        </Link>
+      )}
     </article>
   );
 };
